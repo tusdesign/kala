@@ -66,6 +66,8 @@ func (j *JobRunner) Run(cache JobCache) (*JobStat, Metadata, error) {
 			out, err = j.LocalRun()
 		case j.job.JobType == RemoteJob:
 			out, err = j.RemoteRun()
+		case j.job.JobType == FunctionJob:
+			out, err = j.FunctionRun()
 		default:
 			err = ErrJobTypeInvalid
 		}
@@ -174,6 +176,10 @@ func (j *JobRunner) RemoteRun() (string, error) {
 	} else {
 		return "", errors.New(res.Status + string(b))
 	}
+}
+
+func (j *JobRunner) FunctionRun() (string, error) {
+	return j.job.Func()
 }
 
 func initShParser() *shellwords.Parser {

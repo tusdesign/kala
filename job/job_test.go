@@ -2,11 +2,14 @@ package job
 
 import (
 	"fmt"
+	"log"
 	"strings"
 	"testing"
 	"time"
 
+	device "git.sz9wang.com/tuxiot/device-zhonghong-go-cli/pkg"
 	"github.com/mixer/clock"
+	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -173,6 +176,42 @@ func TestJobRun(t *testing.T) {
 	assert.WithinDuration(t, j.Metadata.LastAttemptedRun, now, 2*time.Second)
 }
 
+func TestFuncJobRun(t *testing.T) {
+	cache := NewMockCache()
+
+	req := device.ReqBody{
+		Acaddr: "01-05",
+		ACTemp: 15,
+	}
+	viper.SetConfigName("config")
+	viper.AddConfigPath("../resources")
+	if err := viper.ReadInConfig(); err != nil {
+		log.Fatalf("error reading config file: %v", err)
+	}
+
+	j := Job{
+		Name: "mock_job",
+		Id:   "0322397e-39f2-4ce6-73e9-8f9ab6be6ef5",
+		Func: func() (string, error) {
+			res, err := device.CheckStatusWithRetries("http://192.168.1.107:59880/api/v3/event/device/name/Office-VRF-Controller", "ACTemp", req, 5, 5)
+			if err != nil {
+				return "false", err
+			}
+			if res {
+				return "true", nil
+			}
+			return "false", nil
+		},
+		Schedule: "R2/2024-10-22T19:50:00+11:00/P1DT10M10S",
+		Owner:    "example@example.com",
+		Retries:  0,
+		JobType:  2,
+	}
+	j.Init(cache)
+	j.Run(cache)
+
+}
+
 func TestJobWithRepeatOfZeroAndNoInterval(t *testing.T) {
 	cache := NewMockCache()
 
@@ -319,9 +358,7 @@ func TestOneOffJobs(t *testing.T) {
 	j.lock.RUnlock()
 }
 
-//
 // Dependent Job Tests
-//
 func TestDependentJobsSimple(t *testing.T) {
 
 	clk := NewHybridClock()
