@@ -1,0 +1,18 @@
+acUrl:
+  "http://192.168.1.107:59880/api/v3/event/device/name/Office-VRF-Controller"
+
+acTempUrl:
+  "http://192.168.1.107:59882/api/v3/device/name/Office-VRF-Controller/ACTemperature"
+
+acOnUrl:
+  "http://192.168.1.107:59882/api/v3/device/name/Office-VRF-Controller/ACOn"
+
+acOffUrl:
+  "http://192.168.1.107:59882/api/v3/device/name/Office-VRF-Controller/ACOff"
+
+acModeUrl:
+  "http://192.168.1.107:59882/api/v3/device/name/Office-VRF-Controller/setACMode"
+
+delay: 5
+
+attempts: 5

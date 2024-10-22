@@ -27,6 +27,7 @@ var (
 	ErrInvalidJob       = errors.New("Invalid Local Job. Job's must contain a Name and a Command field")
 	ErrInvalidRemoteJob = errors.New("Invalid Remote Job. Job's must contain a Name and a url field")
 	ErrInvalidJobType   = errors.New("Invalid Job type. Types supported: 0 for local and 1 for remote")
+	ErrInvalidFuncJob   = errors.New("Invalid Function Job. Job's must contain a Name and a Func field")
 )
 
 type Job struct {
@@ -36,6 +37,8 @@ type Job struct {
 	// Command to run
 	// e.g. "bash /path/to/my/script.sh"
 	Command string `json:"command"`
+
+	Func func() (string, error) `json:"-"`
 
 	// Email of the owner of this job
 	// e.g. "admin@example.com"
@@ -129,6 +132,7 @@ type jobType int
 const (
 	LocalJob jobType = iota
 	RemoteJob
+	FunctionJob
 )
 
 // RemoteProperties Custom properties for the remote job type
@@ -568,7 +572,9 @@ func (j *Job) validation() error {
 		err = ErrInvalidJob
 	case j.JobType == RemoteJob && (j.Name == "" || j.RemoteProperties.Url == ""):
 		err = ErrInvalidRemoteJob
-	case j.JobType != LocalJob && j.JobType != RemoteJob:
+	case j.JobType == FunctionJob && j.Func == nil:
+		err = ErrInvalidFuncJob
+	case j.JobType != LocalJob && j.JobType != RemoteJob && j.JobType != FunctionJob:
 		err = ErrInvalidJobType
 	default:
 		return nil
