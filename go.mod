@@ -1,4 +1,4 @@
-module github.com/ajvb/kala
+module github.com/tusdesign/kala
 
 go 1.22.0
 
@@ -30,6 +30,9 @@ require (
 	go.etcd.io/bbolt v1.3.5
 	gopkg.in/mgo.v2 v2.0.0-20160818020120-3f83fa500528
 )
+
+require filippo.io/edwards25519 v1.1.0 // indirect
+
 
 require (
 	cloud.google.com/go v0.112.1 // indirect

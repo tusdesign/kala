@@ -5,9 +5,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ajvb/kala/job"
 	"github.com/rafaeljusto/redigomock"
 	"github.com/stretchr/testify/assert"
+	"github.com/tusdesign/kala/job"
 )
 
 type testJob struct {

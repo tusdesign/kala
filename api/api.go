@@ -8,8 +8,8 @@ import (
 	"net/http/pprof"
 	"runtime"
 
-	"github.com/ajvb/kala/api/middleware"
-	"github.com/ajvb/kala/job"
+	"github.com/tusdesign/kala/api/middleware"
+	"github.com/tusdesign/kala/job"
 
 	"github.com/gorilla/mux"
 	"github.com/phyber/negroni-gzip/gzip"
