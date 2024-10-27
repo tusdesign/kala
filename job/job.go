@@ -12,8 +12,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ajvb/kala/utils/iso8601"
 	"github.com/mixer/clock"
+	"github.com/tusdesign/kala/utils/iso8601"
 
 	uuid "github.com/nu7hatch/gouuid"
 	log "github.com/sirupsen/logrus"

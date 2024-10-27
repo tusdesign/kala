@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ajvb/kala/job"
+	"github.com/tusdesign/kala/job"
 
 	log "github.com/sirupsen/logrus"
 	bolt "go.etcd.io/bbolt"

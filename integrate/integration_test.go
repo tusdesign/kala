@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ajvb/kala/api"
-	"github.com/ajvb/kala/client"
-	"github.com/ajvb/kala/job"
 	"github.com/mixer/clock"
+	"github.com/tusdesign/kala/api"
+	"github.com/tusdesign/kala/client"
+	"github.com/tusdesign/kala/job"
 )
 
 func TestIntegrationTest(t *testing.T) {

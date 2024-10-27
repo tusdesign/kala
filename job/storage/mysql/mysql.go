@@ -10,7 +10,7 @@ import (
 
 	"github.com/jmoiron/sqlx"
 
-	"github.com/ajvb/kala/job"
+	"github.com/tusdesign/kala/job"
 
 	log "github.com/sirupsen/logrus"
 )

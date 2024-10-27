@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/ajvb/kala/job"
 	"github.com/spf13/cobra"
+	"github.com/tusdesign/kala/job"
 )
 
 var runCommandCmd = &cobra.Command{
